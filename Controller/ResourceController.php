@@ -387,9 +387,13 @@ class ResourceController extends FOSRestController
 
     protected function translateFlashMessage($message)
     {
-        $resource = ucfirst(str_replace('_', ' ', $this->getConfiguration()->getResourceName()));
+        $translator = $this->get('translator');
 
-        return $this->get('translator')->trans(
+        $resource = $translator->trans(
+                ucfirst(str_replace('_', ' ', $this->getConfiguration()->getResourceName()))
+        );
+
+        return $translator->trans(
             $message,
             array('%resource%' => $resource),
             'flashes'
